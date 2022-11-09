@@ -116,7 +116,7 @@ Fingerprinting the services allows you to identify potential vulnerabilities of 
 
 **Fingerprinting unknown services**
 When `nmap` finds services that do not match its DB, we must use advanced flags:
-- -sV (version detection) or -A (version detection + other things)
+- -sV (version detection) or -A (aggressive, version detection + Version detection, Script Scanning and traceroot)
 - --allports (don't exclude any port from version detection)
 - --version-\[light|all|trace|intensity\] (version intensity of \[2|9|print extensive debugging info|a value between 0-9\])
 
@@ -124,5 +124,23 @@ When `nmap` finds services that do not match its DB, we must use advanced flags:
 - [`httprint`](https://net-square.com/httprint.html), identifies web servers
 - [`ID Serve`](https://www.grc.com/id/idserve.htm), web server fingerprintingm cookie values and reverse DNS information
 
-### Vulnerability Research
+## Vulnerability Research
+Finding vulnerabilities on network components found in the previous processes.
 
+### External Vulnerability Assessment
+Identifying vulnerabilities in externally accessible devices, OSs and applications.
+
+### Search and Map the Target
+Tools used to map a service version with the associated vulnerabilities:
+- Regular Google search, just search for "<service> \[<version>\] vulnerabilities"
+- [Google Hacking Database](https://www.exploit-db.com/google-hacking-database)
+- [National Vulnerability Database](https://nvd.nist.gov/)
+- [Exploit Database](https://www.exploit-db.com/)
+- [CVE details](https://www.cvedetails.com/)
+
+### Find Out the Security Vulnerability Exploits
+Finding exploits:
+- [Exploit Database](https://www.exploit-db.com/)
+- [Searchsploit](https://www.exploit-db.com/searchsploit), commad-line utility
+
+## Exploit Verification
