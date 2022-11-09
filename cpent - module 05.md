@@ -1,15 +1,17 @@
 # Module 05 - Network PenTest - External
 External network pentest has the focus on assessing the assets and identifying the vulnerabilities that could help attackers to exploit the network from outside.
 ## Steps
-1 Information gathering (OSINT)
-2 Port Scanning
-3 OS and Service fingerprinting
-4 Vulnerability research
-5 Exploit verification
-6 Reporting
+1. Information gathering (OSINT)
+2. Port Scanning
+3. OS and Service fingerprinting
+4. Vulnerability research
+5. Exploit verification
+6. Reporting
+
 ## Port Scanning
 Preferred tools: nmap, zenmap, hping
 Process where we send a message to all the ports of a system to check whether they are open or closed.
+
 ### Discover live hosts
 | Type of scan | Command |
 | --- | --- |
@@ -23,7 +25,7 @@ Process where we send a message to all the ports of a system to check whether th
 | --- | --- |
 | Default open ports scan | nmap -p- -T4 -A -v <IP_ADDRESS> |
 
-### ￼Use Connect Scan
+### Use Connect Scan
 Disadvantages:
 - doesn’t send RAW packets (like SYN scan does)
 - every connect() request creates a log entry in the machine that leads to detection
@@ -91,4 +93,36 @@ Used to try to get through IDS and firewalls.
 | --- | --- |
 | Fragmentation Scan | nmap -sS -A -f <IP_ADDRESS> |
 
+## OS and Service Fingerprinting
+Preferred tools: nmap, netcraft.com
+Fingerprinting is about the process of detecting the OS and services running on a device.
+
+### Fingerprinting the OS
+**Active OS fingerprinting**
+| Type of Scan | Command |
+| --- | --- |
+| Active OS Scan | nmap -O -F <IP_ADDRESS> |
+
+**Passive OS fingerprinting**
+Use `netcraft` to gather passive OS fingerprinting from a target using [https://sitereport.netcraft.com/?url=THE_URL](https://sitereport.netcraft.com/?url=https://easydevmixin.com)
+
+### Fingerprinting the Services
+Preferred tools: nmap
+Fingerprinting the services allows you to identify potential vulnerabilities of various port and their versions in a host.
+
+| Type of Scan | Command |
+| --- | --- |
+| Identify Running Services | nmap -sV -T4 -F <IP_ADDRESS> |
+
+**Fingerprinting unknown services**
+When `nmap` finds services that do not match its DB, we must use advanced flags:
+- -sV (version detection) or -A (version detection + other things)
+- --allports (don't exclude any port from version detection)
+- --version-\[light|all|trace|intensity\] (version intensity of \[2|9|print extensive debugging info|a value between 0-9\])
+
+**Tools to grab banners from services**
+- [`httprint`](https://net-square.com/httprint.html), identifies web servers
+- [`ID Serve`](https://www.grc.com/id/idserve.htm), web server fingerprintingm cookie values and reverse DNS information
+
+### Vulnerability Research
 
