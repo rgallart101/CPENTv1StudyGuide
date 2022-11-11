@@ -207,6 +207,58 @@ Ports can be in any of the following states:
 | 995 | POP3 OVER SSL |
 
 ### Using Metasploit as a scanner
+Metasploit can scan networks or can import results from nmap. This is useful to improve our hosts DB.
+
+#### Prepare Database
+| Command | Description |
+| --- | --- |
+| `systemctl start postgresql` | Start the database |
+| `msfdb init` | Initializes the DB |
+| `msfdb status` | Checks if connected |
+
+#### Metasploit Database Commands
+All commands to be executed within `msfconsole`.
+
+| Command | Description |
+| --- | --- |
+| `db_connect` | To interact with other DBs than the default one |
+| `db_export` | Exports the DB to create reports or as input to another tool |
+| `db_nmap` | Executes `nmap` and stores the result in Metasploit's DB |
+| `db_status` | Checks DB connection |
+| `db_import` | Imports scan results from `nmap`, `nessus`, etc. Requires an XML formatted scan output |
+
+#### Managing Workspaces
+Workspaces gives us the ability to save scan results per subnet/location/networks. All commands executed within `msfconsole`.
+
+| Command | Description |
+| --- | --- |
+| `help workspace` | Prints `workspace`'s command help |
+| `workspace -a [NANE]` | Creates \[NAME\] workspace and activates it |
+| `workspace [NAME]` | Activates \[NAME\] workspace |
+| `workspace -d [NAME]` | Deletes \[NAME\] workspace |
+
+#### Gathering Data
+| Command | Description |
+| --- | --- |
+| `db_nmap` | Executes `nmap` and stores the result in Metasploit's DB |
+| `db_import` | Imports scan results from `nmap`, `nessus`, etc. Requires an XML formatted scan output |
+
+#### Store and Review the Results
+| Command | Description |
+| --- | --- |
+| `hosts -h` | Displays help for the `hosts` command |
+| `hosts` | Displays target information |
+| `db_export` | Exports the DB (as XML or pwdump) to create reports or as input to another tool |
+
+#### Setting Up Modules
+We can leverage the data in the DB to set up module's configurations.
+
+For example, to leverage the hosts found to make a TCP scan:
+```
+msf 6 > use auxiliary/scanner/portscan/tcp # using the TCP scanner
+msf 6 > hosts -c address -R  # -R imports the target data into the module
+msf 6 > run  # executes the scan and stores results in the database
+```
 
 ## OS and Service Fingerprinting
 
