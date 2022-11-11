@@ -154,7 +154,7 @@ Identifying vulnerabilities in externally accessible devices, OSs and applicatio
 
 ### Search and Map the Target
 Tools used to map a service version with the associated vulnerabilities:
-- Regular Google search, just search for "<service> \[<version>\] vulnerabilities"
+- Regular Google search, just search for "\<service\> \[\<version\>\] vulnerabilities"
 - [Google Hacking Database](https://www.exploit-db.com/google-hacking-database)
 - [National Vulnerability Database](https://nvd.nist.gov/)
 - [Exploit Database](https://www.exploit-db.com/)
