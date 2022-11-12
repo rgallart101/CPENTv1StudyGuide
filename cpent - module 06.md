@@ -209,6 +209,8 @@ Ports can be in any of the following states:
 ### Using Metasploit as a scanner
 Metasploit can scan networks or can import results from nmap. This is useful to improve our hosts DB.
 
+We can obtain help on Metasploit commands either by executing `help [command]` or `[command] -h`.
+
 #### Prepare Database
 | Command | Description |
 | --- | --- |
@@ -261,6 +263,110 @@ msf 6 > run  # executes the scan and stores results in the database
 ```
 
 ## OS and Service Fingerprinting
+Preferred tools: nmap, ping, wireshark, p0f
+Identifying the operating system running the target host.
+
+### Using TTL
+This is a quick (but not reliable) way to identify an OS running on a target host. Different OSs use different TTLs. We can use `ping`, `wireshark`, etc and look for the TTL value to determine the OS.
+
+**Sample of TTL values**
+![Sample TTL Values](images/ttl_values.png)
+
+### Identify the OS
+We can use `p0f` as one of its outputs is the OS being used:
+
+```
+$ sudo p0f -i any -p -o /tmp/sniff.log
+...
+.-[ 1.2.3.4/1524 -> 4.3.2.1/80 (syn) ]-
+|
+| client   = 1.2.3.4
+| os       = Windows XP
+| dist     = 8
+| params   = none
+| raw_sig  = 4:120+8:0:1452:65535,0:mss,nop,nop,sok:df,id+:0
+|
+`----
+...
+```
+
+We can also use `nmap`.
+
+| Scan Type | Command |
+| --- | --- |
+| Identify OS on targer machine | `nmap -O <IP_ADDRESS>` |
+| Enables OS version detection | `nmap -sV -O -v <IP_ADDRESS>` |
+| OS detection + script run | `nmap -A -T4 -v <IP_ADDRESS>` |
+| Limits OS detection to promising targets | `nmap -O -Pn --osscan-limit <IP_RANGE>` |
+| Aggressively guess OS detection | `--osscan-guess` or equivalent `--fuzzy` |
+| Set maximum number of retries (default 5) to guess the OS | `--max-os-tries [NUMBER]` |
+| SMB OS discovery | `nmap --script smb-os-discovery.nse --script-args=unsafe=1 -p 445 <IP_ADDRESS>` |
+
+#### Manual Banner Grabbing
+Connecting manually to the port and observe the response.
+
+**Netcat or Telnet**
+```bash
+$ nc -vn <IP_ADDRESS> <PORT>
+<SERVICE BANNER>
+```
+
+**Using dmitry**
+```bash
+$ dmitry -pb <IP_ADDRESS>
+...
+<SERVICE BANNER>
+```
+
+**Using Python**
+```python
+#!/usr/bin/env python
+import socket
+import sys
+host=sys.argv[1]
+ua="Mozilla/5.0"
+bangrab = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+bangrab.connect((host, 80))
+data = "HEAD / HTTP/1.1\r\nHost: {}\r\nUser-Agent: {}\r\n\r\n".format(host,ua).encode('ascii')
+bangrab.send(data)
+r = bangrab.recv(500)
+print(r.decode('ascii'))
+bangrab.close()
+```
+
+**Using Ruby**
+```ruby
+#!/usr/bin/env ruby
+require 'socket'
+host=ARGV[0]
+ua="Mozilla/5.0"
+data="HEAD / HTTP/1.1\r\nHost:#{host}\r\nUser-Agent:#{ua}\r\n\r\n"
+a=TCPSocket.open(host, 80)
+a.puts(data)
+puts a.recv(500)
+a.close
+```
+### Identify the Services
+Preferred tools: nmap, svmap, Metasploit
+
+| Scan Type | Command |
+|--- | --- |
+| Identify services | `nmap -sV <IP_ADDRESS>` |
+| Services running on open ports | `nmap -T4 -A -v <IP_ADDRESS>` |
+| Identify IPSec devices | `nmap -sU -p 500 <IP_ADDRESS>` |
+| Identify VoIP devices | `svmap <IP_RANGE>` |
+| SSH fingerprinting | Metasploit. Run `search ssh_version` and then use a found module. |
+
+| Metasploit Instruction | Command |
+| --- | --- |
+| Display service details from the DB | `services` |
+| Display services data | `services -c port,proto,created_at <IP_ADDRESS>` |
+| Services Port State | `services -c port,proto,state -p 1-300` |
+
+### Map the Internal Network
+Mapping the internal network is very useful. Tools you can use:
+- [Network Topology Mapper](https://www.solarwinds.com/network-topology-mapper)
+- [NetSurveyor](https://nutsaboutnets.com/archives/netsurveyor-wifi-scanner/)
 
 ## Enumeration
 
