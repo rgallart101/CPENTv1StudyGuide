@@ -369,6 +369,16 @@ Mapping the internal network is very useful. Tools you can use:
 - [NetSurveyor](https://nutsaboutnets.com/archives/netsurveyor-wifi-scanner/)
 
 ## Enumeration
+The process of extracting as much useful data as possible (usernames, IP tables, macine names, DNS details, services running, etc.) from a system or network. This will allow us to identify system attack points and perform password attacks to gain unauthorized access to systems.
+
+### Perform Service Enumeration
+- [SuperScan](https://www.softpedia.com/get/Network-Tools/Network-IP-Scanner/SuperScan.shtml), multi-functional application designed as a TCP port scanner, pinger and address resolver. Performs ping sweeps, Windows Enumeration, Host and Service discovery, etc.
+- [Winfingerprint](https://www.softpedia.com/get/Security/Security-Related/winfingerprint.shtml), enables security administrators to scan a range of IP addresses and retrieve useful information on the remote hosts, such as patch level. WinFingerprint is able to send the Ping and Traceroute signals to the hosts, show an event log and errors, and more. Results include the computer name, Ping reply time, SID, MAC address, patch level, NetBIOS shares, and services.
+
+### Enumeration Techniques and Tools
+| Technique | Information Obtained | Tools |
+| --- | --- | --- |
+| NetBIOS enumeration | <ul><li>list of computers</li><li>list of shares</li><li>policies and passwords</li></ul> | <ul><li>nbtstat</li><li>SuperScan</li><li>Hyena</li><li>Winfingerprint</li></ul> |
 
 ## Vulnerability Assessment
 
