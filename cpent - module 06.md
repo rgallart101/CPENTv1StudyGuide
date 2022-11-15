@@ -379,6 +379,49 @@ The process of extracting as much useful data as possible (usernames, IP tables,
 | Technique | Information Obtained | Tools |
 | --- | --- | --- |
 | NetBIOS enumeration | <ul><li>list of computers</li><li>list of shares</li><li>policies and passwords</li></ul> | <ul><li>nbtstat</li><li>SuperScan</li><li>Hyena</li><li>Winfingerprint</li></ul> |
+| SNMP enumeration | <ul><li>Information about network resources such as hosts, routers, devices, and shares</li></ul> | <ul><li>OpUtils</li><li>Engineer's Toolset</li><li>SNMP Scanner</li></ul> |
+| LDAP enumeration | <ul><li>Valid user names, addresses, departmental details, and so on</li></ul> | <ul><li>Softerra LDAP Administrator</li><li>LDAP Admin Tool</li></ul> |
+| NTP enumeration | <ul><li>List of hosts connected to NTP server</li><li>Clients IP addresses in a network, and their system names and OSs</li><li>Internal IPs can also be obtained if the NTP server is in the DMZ</li></ul> | <ul><li>NTP Server Scanner</li><li>nmap</li><li>Wireshark</li></ul> |
+| SMTP enumeration | <ul><li>List of valid users on the SMTP server</li></ul> | <ul><li>NetScanTools Pro</li></ul> |
+| IPSEC enumeration | <ul><li>Encryption and hashing algorithm, authentication type, key distribution algorithm, and so on</li></ul> | <ul><li>Ike Scan</li></ul> |
+| VoIP enumeration | <ul><li>VoIP gateway/servers, IP-PBX systems, client software (softphones) /VoIP phones user-agent IP addresses and user extensions</li></ul> | <ul><li>auxiliary/scanner/SIP/e numerator</li></ul> |
+| SMB enumeration | <ul><li>SMB Shares</li></ul> | <ul><li>NetScanTools Pro,
+ShareEnum</li></ul> |
+
+### Perform NetBIOS Enumeration
+First step to enumerate a Windows System. Is a unique 16-character ASCII string to identify network devices over TCP/IP. NETBIOS uses UDP port 137 (name services), UDP port 138 (datagram services), and TCP port 139 (session services). To enumerate the NetBIOS names, the remote system must have enabled file and printer sharing.
+
+| Name | NetBIOS Code | Type | Information Obtained |
+| --- | --- | --- | --- |
+| \<host name\> | \<00\> | UNIQUE | Hostname |
+|\<domain\> | \<00\> | GROUP | Domain name |
+|\<host name\> | \<03\> | UNIQUE | Messenger service running for that computer |
+|\<username\> | \<03\> | UNIQUE | Messenger service running for that individual logged-in user |
+|\<host name\> | \<20\> | UNIQUE | Server service running |
+|\<domain\> | \<1D\> | GROUP | Master browser name for the subnet |
+|\<domain\> | \<1B\> | UNIQUE | Domain master browser name, identifies the PDC for that domain |
+
+**Tools**:
+- [`nbtstat`](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/nbtstat), Microsoft Swiss knife for NetBIOS issues.
+
+`nbtstat [-a RemoteName] [-A IPAddress] [-c] [-n] [-r] [-R] [-RR] [-s] [-S] [Interval]`
+
+| `nbtstat` parameters | Function |
+| --- | --- |
+| `-a RemoteName` | Displays the NetBIOS name table of a remote computer |
+| `-A IPAddress` | Displays the NetBIOS name table of a remote computer, |
+| `-c` | Lists the contents of the NetBIOS name cache, the table of NetBIOS names, and their resolved IP addresses |
+| `-n` | Displays the names registered locally by NetBIOS applications |
+| `-r` | Displays a count of all names resolved by broadcast or WINS server |
+| `-R` | Purges the name cache and reloads all #PRE entries from LMHOSTS |
+| `-RR` | Releases and reregisters all names with the name server |
+| `-s` | Lists the NetBIOS sessions table converting destination IP addresses to computer NetBIOS names. |
+| `-S` | Lists the current NetBIOS sessions and their status with the IP addresses |
+| `Interval` | Redisplays selected statistics, pausing the number of seconds specified in interval between each display |
+
+- [Hyena](https://www.systemtools.com/hyena), supports management of users, groups (both local and global), shares, domains, computers, services, devices, events, files, printers, print jobs, sessions, open files, disk space, user rights, messaging, exporting, job scheduling, processes, and printing. It shows shares and user logon names for Windows servers and domain controllers.
+
+- [`nbtscan`](https://github.com/resurrecting-open-source-projects/nbtscan/blob/master/man/nbtscan.txt), NBTscan is a program for scanning IP networks for NetBIOS name information.
 
 ## Vulnerability Assessment
 
