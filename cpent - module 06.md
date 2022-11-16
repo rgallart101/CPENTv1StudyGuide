@@ -389,7 +389,7 @@ The process of extracting as much useful data as possible (usernames, IP tables,
 ShareEnum</li></ul> |
 
 ### Perform NetBIOS Enumeration
-First step to enumerate a Windows System. Is a unique 16-character ASCII string to identify network devices over TCP/IP. NETBIOS uses UDP port 137 (name services), UDP port 138 (datagram services), and TCP port 139 (session services). To enumerate the NetBIOS names, the remote system must have enabled file and printer sharing.
+First step to enumerate a Windows System. Is a unique 16-character ASCII string to identify network devices over TCP/IP. NETBIOS uses **UDP port 137** (name services), **UDP port 138** (datagram services), and **TCP port 139** (session services). To enumerate the NetBIOS names, the remote system must have enabled file and printer sharing.
 
 | Name | NetBIOS Code | Type | Information Obtained |
 | --- | --- | --- | --- |
@@ -422,6 +422,111 @@ First step to enumerate a Windows System. Is a unique 16-character ASCII string 
 - [Hyena](https://www.systemtools.com/hyena), supports management of users, groups (both local and global), shares, domains, computers, services, devices, events, files, printers, print jobs, sessions, open files, disk space, user rights, messaging, exporting, job scheduling, processes, and printing. It shows shares and user logon names for Windows servers and domain controllers.
 
 - [`nbtscan`](https://github.com/resurrecting-open-source-projects/nbtscan/blob/master/man/nbtscan.txt), NBTscan is a program for scanning IP networks for NetBIOS name information.
+
+### Perform SNMP Enumeration
+SNMP is a gift for the amount of data we can extract is huge. It contains two passwords (public and private). Runs on **UDP port 161**.
+
+- Checking for SNMP with `nmap`
+```bash
+nmap -sU -p 161 <IP_ADDRESS>
+```
+
+- Multiple scripts available for `nmap`
+```bash
+kali@kali:/usr/share/nmap/scripts$ ls | grep snmp
+snmp-brute.nse
+snmp-hh3c-logins.nse
+snmp-info.nse
+snmp-interfaces.nse
+snmp-ios-config.nse
+snmp-netstat.nse
+snmp-processes.nse
+snmp-sysdescr.nse
+snmp-win32-services.nse
+snmp-win32-shares.nse
+snmp-win32-software.nse
+snmp-win32-users.nse
+```
+
+- Enumerate the DB with [`snmpwalk`](https://www.comparitech.com/net-admin/snmpwalk-examples-windows-linux/)
+```bash
+snmpwalk -Os -c public -v 1 <IP_ADDRESS>
+```
+
+Other useful tools to enumerate SNMP:
+- [OpUtils](https://manageengine.optrics.com/oputils.aspx), it consists of 30 plus tools including: network diagnostics, ip address management, address monitoring, network monitoring, cisco and SNMP tools.
+
+### Perform LDAP Enumeration
+LDAP contains directory information (like usernames, passwords, departmental details, etc). It usually works on **TCP port 389** and sends operations to the directory system agent (DSA).
+
+Tools:
+- [Softerra LDAP Administrator](https://www.ldapadministrator.com/), works with Active Directory (AD), Novell Directory, Netscape/iPlanet, etc. It's like an explorer for LDAP.
+
+| Command | Description |
+| --- | --- |
+| `nmap -sS -sU -p389 -v <IP_ADDRESS> -oA ldap-script-results --open --script ldap-brute,ldap-rootdse` | Brute force the naming data |
+| `nmap -sS -p 389 -d -v <IP_ADDRESS> -oA ldap-brute-results --open --script ldap-brute --script-args "ldap.base=\"cn=users,dc=<DOMAIN>,dc=<TLD>\""` | Extract credentials from the directory |
+
+### Perform NTP Enumeration
+Designed to synchronize clocks, works on **UDP port 123**. We can use it to obtain:
+- hosts connected to the NTP server
+- client's IP addresses in a network, their names and OSs
+- internal IPs even if the NTP server is in the DMZ
+
+| Command | Description |
+| --- | --- |
+| `ntptrace` | Determines from where the host gets the time and follows the chain to the source |
+| `ntpdc` | Queries the ntpdc daemon about current state and requests changes. Can be run in interactive mode with `-i` |
+| `ntpq` | Monitors `ntpd` daemon performance. Can be run in interactive mode with `-i` |
+
+### Perform SMTP Enumeration
+Simple Mail Transfer Protocol (SMTP) is used by email systems with POP3 and IMAP to manage email. SMPT usually works on **TCP port 25**. We can connect to SMTP with `telnet` or `netcat`. We use the SMTP commands:
+- `VRFY`, to verify users
+- `EXPN`, tells actual delivery addresses of aliases and mailing lists
+- `RCPT TP`, defines recipients of the message
+
+Connecting to a SMTP is always like this:
+```bash
+$ telnet <IP_ADDRESS> 25
+Trying <IP_ADDRESS>...
+Connected to <IP_ADDRESS>
+...
+HELO <DOMAIN>
+250 <SERVER NAME> Hello <ORIGIN_IP_ADDRESS>, pleased to meet you
+```
+
+**VRFY**
+```bash
+VRFY Jonathan
+250 Super-User <Jonathan@<SERVER NAME>>
+VRFY Smith
+550 Smith... User unknown
+```
+
+**EXPN**
+```bash
+EXPN Jonathan
+250 Super-User <Jonathan@<SERVER NAME>>
+EXPN Smith
+550 Smith... User unknown
+```
+
+**RCPT TO**
+```bash
+MAIL FROM:Jonathan
+250 Jonathan... Sender ok
+RCPT TO:Ryder
+250 Ryder... Recipient ok
+RCPT TO:Smith
+550 Smith... User unknown
+```
+
+### Perform IPSec Enumeration
+This is a two-step process. First we scan with IPSec scan (Win32 command-line tool). Once we identify ISAKMP services running on **UDP port 500**, then we can use [`ike-scan`](https://github.com/royhills/ike-scan) to enumerate sensitive information.
+
+```bash
+ike-scan -M <IP_ADDRESS>
+```
 
 ## Vulnerability Assessment
 
