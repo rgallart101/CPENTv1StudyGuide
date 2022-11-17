@@ -528,6 +528,91 @@ This is a two-step process. First we scan with IPSec scan (Win32 command-line to
 ike-scan -M <IP_ADDRESS>
 ```
 
+### Perform VoIP Enumeration
+Enumerate VoIP-enabled devices and hosts. Enumerate SIP services to obtain sensitive information (VoIP gateways/servers, IP-PBX systems, client software/VoIP phones, etc.).
+
+Tools:
+- [Metasploit](https://www.rapid7.com/db/modules/auxiliary/scanner/sip/enumerator/), use the `auxiliary/scanner/sip/enumerator` module to obtain information.
+- [Smap](https://www.youtube.com/watch?v=XAi_Zxt8fQ8), finds Asterisk boxes, ATAs or SIP phones and PC with softphones enabled and listening VoIP ports.
+- [Svmap](https://resources.infosecinstitute.com/topic/voip-network-recon-footprinting-scanning-and-enumeration/), open source scanner to determine enabled SIP devices and PBX servers.
+
+### Perform SMB Enumeration
+The SMB protocol gives access to files, printers and serial ports. It runs directly on **TCP port 445** or via NetBIOS API on **UDP ports 137, 138** and **TCP ports 137, 139**. If this service is running on a network, then there is a high possibility of enumeration via SMB.
+
+| Command | Description |
+| --- | --- |
+| `nmap -p 139,445 <IP_ADDRESS>` | Discovers SMB running on \<IP_ADDRESS\> |
+| `ls /usr/share/nmap/scripts/*smb*.nse` | Lists all SMB related scripts |
+| `nmap --script smb-enum-shares --script-args=unsafe=1 -p445 <IP_ADDRESS>` | Enumerates shares |
+| `nmap --script smb-enum-users --script-args=unsafe=1 -p445 <IP_ADDRESS>` | Enumerates users |
+
+Tools:
+- [NetScanTools Pro](https://www.netscantools.com/), integrated collection of Internet information gathering for IPv4 addresses, IPv6 addresses, hostnames, domain names, email addresses and URLs.
+- [ShareEnum](https://learn.microsoft.com/en-us/sysinternals/downloads/shareenum), allows the user to view and monitor the computer's file-sharing activities.
+
+### Perform RPC Enumeration
+Remote procedure call (RPC) is a protocol that is used by a computer to communicate or
+request any other computer in the network without having to understand the network's details.
+
+Tools:
+- `nmap`, `nmap -A -T4 <IP_ADDRESS>`
+- [NetScanTools Pro](https://www.netscantools.com/), navigate to Manual Tools (all) tab in the left-pane and scroll till you find *nix RPC Info icon as shown in the screenshot.
+
+### Perform Null Session Enumeration
+The null session is nothing but an anonymous access to the server, which means no need of authentication while establishing the session (no username and password credentials are used while establishing the session).
+
+As a penetration tester, verify if null sessions are enabled on the target machine. If possible, establish null sessions and enumerate users in the system.
+
+Note: Windows Server 2008, Windows XP, Windows 7, and Windows 8 do not allow null session connections.
+
+Syntax:
+```
+net use \\<IP_ADDRESS>\IPC$ "" /u:""
+```
+
+### Perform Unix/Linux Enumeration
+If `finger` daemon is running (**TCP port 79**), we can try using:
+- `rusers`, to view a list of users logged onto a remote machine.
+- `rwho`, list of users logged in to hosts on the local network.
+- `finger`, `finger @<IP_ADDRESS>` gives a list of users. `finger <USER>@<IP_ADDRESS>` gives info about \<USER\>.
+- [`enum4linux`](https://www.kali.org/tools/enum4linux/), Enum4linux is a tool for enumerating information from Windows and Samba systems.
+
+### Perform IPv6 Enumeration
+Tools:
+- [Enyx](https://github.com/trickster0/Enyx), IPv6 enumeration tool used for grabbing the possible IPv6 of a machine through the SNMP protocol.
+- [Hackit](https://ipv6hackit.sourceforge.net/), provides you with a list of active IPv6 hosts. It can perform TCP port scanning and identify AAAA IPv6 host records.
+
+### Sniff the Network
+Monitor and capture the packets passing through a network.
+
+Tools: `tcpdump`, Wireshark.
+
+>> I like to run `tcpdump` and save the contents in a pcap file. I then analize in Wireshark.
+
+Once sniffed, extract the following information:
+- DNS traffic
+- POP3/FTP/Telnet passwords
+- Email traffic
+- Router configuration
+- Web traffic
+- Chat sessions
+- Syslog traffic
+
+### Capturing data with Tcpdump
+| Tcpdump command | Description |
+| --- | --- |
+| `tcpdump -i eth0` | Captures from a specific interface |
+| `tcpdump -c 5 -i eth0` | Captures 5 packets |
+| `tcpdump -A -i ethO` | Displays capture in ASCII |
+| `tcpdump -XX -i ethO` | Displays capture in ASCII and HEX |
+| `tcpdump -w 0001.pcap -i ethO` | Captures packets in a file |
+| `tcpdump -r 0001.pcap` | Reads captured packets |
+| `tcpdump -i ethO tcp` | Captures TCP packets |
+| `tcpdump -i ethO port 22` | Captures packet from specific port (`src` or `dst`) |
+| `tcpdump -i ethO src 192.168.0.2` | Captures packets from a source IP |
+| `tcpdump -i ethO dst 50.116.66.139` | Captures packets from a destination IP |
+| `tcpdump -c 5 -s 0 -i eth0 'tcp[13]==2'` | Filter by header. In the example it only displays SYN packets |
+
 ## Vulnerability Assessment
 
 ## Windows Exploitation
