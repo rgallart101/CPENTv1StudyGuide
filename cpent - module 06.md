@@ -665,7 +665,6 @@ With an internal vulnerability assessment we assess the internal security postur
   - Much better if you know what you're looking for
 - Tailoring Scans
   - Basic
-    -
   - Discovery
     - Select ports
     - Speed
@@ -703,6 +702,19 @@ With an internal vulnerability assessment we assess the internal security postur
 - [OpenVas](https://openvas.org/)
 
 ### Perform Vulnerability Scan Using Nmap
+Using [built-in NSE scripts](cpent%20-%20module%2006%20-%20nmap%20files.md) available at `/usr/share/nmap/scripts` to scan specific vulnerabilities.
+
+**Syntax to run a script from nmap**
+```
+nmap ... --script <filename>|<category>|<directory>|<expression> ...
+```
+
+The syntax contains filenames, categories, directories, etc separated by a comma.
+
+This would check if an FTP server allows anonymous login:
+```
+nmap --script ftp-anon -p 21 <IP_ADDRESS>
+```
 
 ## Windows Exploitation
 
