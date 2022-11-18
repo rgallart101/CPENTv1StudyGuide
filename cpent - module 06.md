@@ -614,6 +614,95 @@ Once sniffed, extract the following information:
 | `tcpdump -c 5 -s 0 -i eth0 'tcp[13]==2'` | Filter by header. In the example it only displays SYN packets |
 
 ## Vulnerability Assessment
+Pocess of identifying vulnerabilities in a network structure.
+
+### Perform Internal Vulnerability Assessment
+With an internal vulnerability assessment we assess the internal security posture.
+
+**Objectives**
+- identify the attack surface
+- determine risk
+- assess severity
+- draft report
+- develop remediation plan
+
+**Main Tools**
+- [Nessus](https://www.tenable.com/products/nessus), commercial and industry standard
+- [OpenVas](https://openvas.org/), open source (fork of the original Nessus)
+
+**Network vs Host vulnerability scanner**
+| Network | Host |
+| --- | --- |
+| look data at network level | atack surface on the host machine |
+| assess services accessible to the scanner | assessment of installed applications |
+| investigat DMZ and other zones | investigates processes running on the machine |
+| review protocol, traffic and routing | better if credentials are used |
+
+**Scanner configuration**
+- parameters
+- set protocols and ports to be tested
+- host discovery method
+- policies
+- use templates if provided by the scanner
+  - Nessus provides a large number (depends on the license)
+
+#### Nessus
+- Can control different scanners.
+- Every audit check is a Nessus plugin (>80,000). It's **very important** to keep them updated.
+- Plugins
+  - There are different plugin families
+    - Operating Systems
+    - Application
+    - Etc.
+  - Each plugin can have sub-plugins
+    - Allows for more granularity
+  - Access to plugins `New Scan > Advanced Scans > Plugins`
+- It contains most templates (e.g., *Basic Network Scan*)
+  - A template is a collection of plugins (and others)
+- Custom Scan
+  - You can select what plugins to run
+  - Takes time to configure
+  - Much better if you know what you're looking for
+- Tailoring Scans
+  - Basic
+    -
+  - Discovery
+    - Select ports
+    - Speed
+    - Port scanner settings
+    - Protocols for pinging potential targets (useful when ICMP is blocked)
+  - Assessment
+    - Can set more specific scan parameters
+  - Report
+    - Processing
+    - Output
+  - Advanced
+    - Performance parameters
+    - Low bandwidth links
+
+#### OpenVas
+- Port Configuration
+  - Similar to Nessus
+  - Contains plugins
+  - Nessus concepts apply
+
+### Perform Network Vulnerability Scanning Using Network Vulnerability Scanners
+- [QualysGuard](https://www.qualys.com/qualysguard/)
+  - identifies OS, open ports and services running on a system
+  - examines the network continuously for changes
+  - has an approach to remediation steps
+  - assists to scan internal networks for vulnerabilities
+  - provides reports
+- [Nessus](https://www.tenable.com/products/nessus) checks for the following vulnerabilities
+  - hackers getting access to important data in the system
+  - misconfiguration
+  - password attack
+  - DoS against TCP/IP
+  - preparation for PCI-DSS audits
+- [GFI LanGuard](https://www.gfi.com/products-and-solutions/network-security-solutions/languard)
+- [OpenVas](https://openvas.org/)
+
+### Perform Vulnerability Scan Using Nmap
 
 ## Windows Exploitation
 
