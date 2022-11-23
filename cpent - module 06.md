@@ -716,6 +716,39 @@ This would check if an FTP server allows anonymous login:
 nmap --script ftp-anon -p 21 <IP_ADDRESS>
 ```
 
+### Vulnerability Assessment Report
+Describes the process and the result of the assessment.
+
+Guidelines to write a good vulnerability assessment:
+- **Title of the vulnerability**
+- **Description**, keep it short and clear. Use links to help in better understanding.
+- **Proof of concept**, treat the reader as a neophite. Include a step-by-step process for the vulnerability.
+- **Tools**, what's been helpful in finding the vulnerability.
+- **Solution**, provide a clear solution for the problem.
+
+### Map the Service Version with the Associated Security Vulnerabilities
+When mapping vulnerabilities is goo to rely on manual search. Automated tools can crash the system and take a lot of time. Also, multiple tools should be used to discard false positives.
+
+By manually searching Google for the service found, we can check for vulnerabilities, CVEs, exploits, etc.
+
+- [Exploit Database](https://www.exploit-db.com/)
+- [NIST CVE Search](https://nvd.nist.gov/vuln/search)
+- [Google search: <SERVICE> <VERSION> vulnerabilities](https://www.google.com/search?q=iis+7.5+vulnerabilities) (IIS 7.5 vulnerabilities as an example)
+
+### Map the Windows Applications with the Exploits
+After mapping the services with the vulnerabilities it's time to find exploits. A good source for this is [Exploit Database](https://www.exploit-db.com/), [Metasploit's vulnerability DB](https://www.rapid7.com/db/) or a Google search [<SERVICE> <VERSION> exploit](https://www.google.com/search?q=iis+7.5+exploits).
+
+>> Make sure you know what the exploit does byt reviewing it first. If you run the exploit and has unexpected consequences, you're fully responsible for it.
+
+### Map the Windows OS with the Associated Vulnerabilities
+Once the OS and version of Windows running has been gathered, repeat the same process. It's important to know Windows version, patch level, etc.
+
+### Map the Solaris with the Associated Security Vulnerabilities
+Same for Solaris OS.
+
+### Map the Unix/Linux with the Associated Security Vulnerabilities
+Same here for Unix/Linux. Important to know: kernel version, security services and patch version.
+
 ## Windows Exploitation
 
 ## Unix/Linux Exploitation
