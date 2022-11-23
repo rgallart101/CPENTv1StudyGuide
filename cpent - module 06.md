@@ -803,7 +803,7 @@ After mapping the services with the vulnerabilities it's time to find exploits. 
 >> Make sure you know what the exploit does byt reviewing it first. If you run the exploit and has unexpected consequences, you're fully responsible for it.
 
 ### Map the Windows OS with the Associated Vulnerabilities
-Once the OS and version of Windows running has been gathered, repeat the same process. It's important to know Windows version, patch level, etc.
+Once the OS and version of Windows running has been gathered, repeat the same process. It's important to know Windows version, service pack, patch level, etc.
 
 ### Map the Solaris with the Associated Security Vulnerabilities
 Same for Solaris OS.
