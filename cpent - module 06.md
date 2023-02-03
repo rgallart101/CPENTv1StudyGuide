@@ -868,6 +868,19 @@ When it comes to exploit publishers, because it's easy to search and there are t
 
 The tool [searchsploit](https://www.exploit-db.com/searchsploit), which is a command-line front-end to exploit-db, is another awesome source to easily find exploits and filter them by different options.
 
+If the exploit is in a compiled language:
+- look for the readme file
+- is there a configure file?
+  - `./configure`
+  - `make`
+  - `make install`
+  - `make clean`
+- if there's no configure file
+  - use `gcc` or `g++`
+
+If the exploit is in a scripted language:
+- load the code in an interpreter and test it
+
 And last but not least **always try first the exploit in a local lab environment and analyze it at the packet level before running it against your customer's infrastructure**.
 
 ## Unix/Linux Exploitation
