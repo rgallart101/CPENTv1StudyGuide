@@ -866,7 +866,7 @@ At the end of the day **you are responsible for the attacks you launch to your c
 
 When it comes to exploit publishers, because it's easy to search and there are tons, [`Exploit DB`](https://www.exploit-db.com) is king. [PacketStormSecurity](https://packetstormsecurity.com/) is also another great resource, although is harder to look for specific exploits (or at least I don't know how do do it yet).
 
-The tool [searchsploit][https://www.exploit-db.com/searchsploit], which is a command-line front-end to exploit-db, is another awesome source to easily find exploits and filter them by different options.
+The tool [searchsploit](https://www.exploit-db.com/searchsploit), which is a command-line front-end to exploit-db, is another awesome source to easily find exploits and filter them by different options.
 
 And last but not least **always try first the exploit in a local lab environment and analyze it at the packet level before running it against your customer's infrastructure**.
 
