@@ -53,6 +53,9 @@
     - [Map the Unix/Linux with the Associated Security Vulnerabilities](#map-the-unixlinux-with-the-associated-security-vulnerabilities)
     - [Vulnerability Scan Analysis Process. Summary](#vulnerability-scan-analysis-process-summary)
   - [Windows Exploitation](#windows-exploitation)
+    - [Exploitation](#exploitation)
+    - [Exploiting targets](#exploiting-targets)
+    - [Finding exploits](#finding-exploits)
   - [Unix/Linux Exploitation](#unixlinux-exploitation)
   - [Other Internal Network Exploitation Techniques](#other-internal-network-exploitation-techniques)
   - [Automating Internal Network PenTest Effort](#automating-internal-network-pentest-effort)
@@ -831,6 +834,41 @@ Same here for Unix/Linux. Important to know: kernel version, security services a
 8. Examine one reference (CVE, BID, etc) and review and compare to the scanner data
 
 ## Windows Exploitation
+To exploit an OS we need to find vulnerabilities (there's no hack without them) and exploits that leverage these vulnerabilities found.
+
+### Exploitation
+**Always remember the rules of engagement before attempting any of these steps!**
+
+The exploitation is the vulnerability validation phase. In this phase we:
+- compromise the victim
+  - by using vulnerabilities found previously (not all of them will be exploitable)
+- deliver the payload
+  - what do we do once the victim is compromised?
+    - leave proof of access (grab files, plant a keylogger, crack passwords, leave a banner, etc)
+- from there
+  - footprint other systems
+
+### Exploiting targets
+- exploits are very specific
+- we need OS build and revision number (Windows: Service Pack, Linux: kernel data)
+- metasploit has tons of exploits (but not everythig is metasploit!)
+
+### Finding exploits
+The ideal exploits are proof-of-concept (PoC) ones.
+
+Do not trust any exploit you find! You have to review it as:
+- could be a trojan or other form of malware
+- might not be documented
+- might be complex to compile/run
+- might not work
+
+At the end of the day **you are responsible for the attacks you launch to your client's infrastructure**. Remember that!
+
+When it comes to exploit publishers, because it's easy to search and there are tons, [`Exploit DB`](https://www.exploit-db.com) is king. [PacketStormSecurity](https://packetstormsecurity.com/) is also another great resource, although is harder to look for specific exploits (or at least I don't know how do do it yet).
+
+The tool [searchsploit][https://www.exploit-db.com/searchsploit], which is a command-line front-end to exploit-db, is another awesome source to easily find exploits and filter them by different options.
+
+And last but not least **always try first the exploit in a local lab environment and analyze it at the packet level before running it against your customer's infrastructure**.
 
 ## Unix/Linux Exploitation
 
