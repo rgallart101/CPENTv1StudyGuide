@@ -51,6 +51,7 @@
     - [Map the Windows OS with the Associated Vulnerabilities](#map-the-windows-os-with-the-associated-vulnerabilities)
     - [Map the Solaris with the Associated Security Vulnerabilities](#map-the-solaris-with-the-associated-security-vulnerabilities)
     - [Map the Unix/Linux with the Associated Security Vulnerabilities](#map-the-unixlinux-with-the-associated-security-vulnerabilities)
+    - [Vulnerability Scan Analysis Process. Summary](#vulnerability-scan-analysis-process-summary)
   - [Windows Exploitation](#windows-exploitation)
   - [Unix/Linux Exploitation](#unixlinux-exploitation)
   - [Other Internal Network Exploitation Techniques](#other-internal-network-exploitation-techniques)
@@ -810,6 +811,24 @@ Same for Solaris OS.
 
 ### Map the Unix/Linux with the Associated Security Vulnerabilities
 Same here for Unix/Linux. Important to know: kernel version, security services and patch version.
+
+### Vulnerability Scan Analysis Process. Summary
+1. Take the results and review them
+2. Identify points of weakness
+   1. hosts
+   2. protocols
+   3. applications
+   4. etc
+3. Investigate the listing of vulnerabilities
+4. Look at the vulnerability information
+5. Check the recommended solutions
+6. If the scanner provided an output, it can be used in the report
+7. Review additional vulnerability details
+   1. CVSS
+   2. Vulnerability information
+   3. How it's exploitable
+   4. References
+8. Examine one reference (CVE, BID, etc) and review and compare to the scanner data
 
 ## Windows Exploitation
 
