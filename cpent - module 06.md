@@ -52,11 +52,11 @@
     - [Map the Solaris with the Associated Security Vulnerabilities](#map-the-solaris-with-the-associated-security-vulnerabilities)
     - [Map the Unix/Linux with the Associated Security Vulnerabilities](#map-the-unixlinux-with-the-associated-security-vulnerabilities)
     - [Vulnerability Scan Analysis Process. Summary](#vulnerability-scan-analysis-process-summary)
-  - [Windows Exploitation](#windows-exploitation)
-    - [Exploitation](#exploitation)
+  - [Exploitation](#exploitation)
     - [Exploiting targets](#exploiting-targets)
     - [Finding exploits](#finding-exploits)
     - [Evaluating a vulnerability exploit](#evaluating-a-vulnerability-exploit)
+  - [Windows Exploitation](#windows-exploitation)
   - [Unix/Linux Exploitation](#unixlinux-exploitation)
   - [Other Internal Network Exploitation Techniques](#other-internal-network-exploitation-techniques)
   - [Automating Internal Network PenTest Effort](#automating-internal-network-pentest-effort)
@@ -834,11 +834,10 @@ Same here for Unix/Linux. Important to know: kernel version, security services a
    4. References
 8. Examine one reference (CVE, BID, etc) and review and compare to the scanner data
 
-## Windows Exploitation
-To exploit an OS we need to find vulnerabilities (there's no hack without them) and exploits that leverage these vulnerabilities found.
-
-### Exploitation
+## Exploitation
 **Always remember the rules of engagement before attempting any of these steps!**
+
+To exploit an OS we need to find vulnerabilities (there's no hack without them) and exploits that leverage these vulnerabilities found.
 
 The exploitation is the vulnerability validation phase. In this phase we:
 - compromise the victim
@@ -920,9 +919,18 @@ These are some questions to care about the exploit:
       - rdp
   - most webapps use authentication
 
+## Windows Exploitation
+- **Identify local/remote exploits** to gain access to a Windows system. It is possible to do that using the resources aforementioned to find exploits (especially [exploit-db](https://www.exploit-db.com/)).
+- **Gain access using a remote shell**, with the identified exploits working on the especific Windows version, try to get a remote shell. Advice: use metasploit and their modules.
+- **Try to exploit a buffer overflow** if you identify the existence of a local buffer overflow vulnerability. You can use metasploit to create a payload and lure the victim to download and execute it or, if you have remote access, load and execute it yourself.
+
 ## Unix/Linux Exploitation
+- **Identify local/remote exploits** to gain root access.
+- **Gain access to Linux using a remote shell**, running the exploit against the vulnerabilities found in the specific version of Unix/Linux OS.
+- **Extract user accounts** from `/etc/passwd`. Only `root` can write this file, but all users can read.
 
 ## Other Internal Network Exploitation Techniques
+
 
 ## Automating Internal Network PenTest Effort
 
