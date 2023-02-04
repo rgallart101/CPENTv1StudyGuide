@@ -56,6 +56,7 @@
     - [Exploitation](#exploitation)
     - [Exploiting targets](#exploiting-targets)
     - [Finding exploits](#finding-exploits)
+    - [Evaluating a vulnerability exploit](#evaluating-a-vulnerability-exploit)
   - [Unix/Linux Exploitation](#unixlinux-exploitation)
   - [Other Internal Network Exploitation Techniques](#other-internal-network-exploitation-techniques)
   - [Automating Internal Network PenTest Effort](#automating-internal-network-pentest-effort)
@@ -868,6 +869,8 @@ When it comes to exploit publishers, because it's easy to search and there are t
 
 The tool [searchsploit](https://www.exploit-db.com/searchsploit), which is a command-line front-end to exploit-db, is another awesome source to easily find exploits and filter them by different options.
 
+Another source is the [Full Disclosure](https://seclists.org/fulldisclosure/) list. It is possible to find insight on some vulnerabilities.
+
 If the exploit is in a compiled language:
 - look for the readme file
 - is there a configure file?
@@ -882,6 +885,33 @@ If the exploit is in a scripted language:
 - load the code in an interpreter and test it
 
 And last but not least **always try first the exploit in a local lab environment and analyze it at the packet level before running it against your customer's infrastructure**.
+
+To remember: an exploit is not always necessary
+- configuration mistakes
+- admin errors
+- services can be brute-forced!
+
+### Evaluating a vulnerability exploit
+These are some questions to ask about the exploit:
+- location of the attacker:
+  - remote, preferred
+  - local (physical), it can be used for internal testing or if we gain access via a remote vector
+  - subnet, can be used for man-in-the-middle
+  - intranet, inside the internet firewall
+- does an exploit actually exist?
+  - can we find one or do we have to create the exploit?
+- impact
+  - a (D)DoS is of not much use
+- what's the exploit's complexity?
+  - what are the necessary coding skills? (C, Java, Python, others...)
+  - is decription or decoding required?
+- authentication
+  - is it required?
+    - data analysis should reveal potential password attack vectors
+      - ssh
+      - smb
+      - rdp
+  - most webapps use authentication
 
 ## Unix/Linux Exploitation
 
