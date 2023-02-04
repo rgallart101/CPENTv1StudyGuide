@@ -889,10 +889,17 @@ And last but not least **always try first the exploit in a local lab environment
 To remember: an exploit is not always necessary
 - configuration mistakes
 - admin errors
-- services can be brute-forced!
+- services can be <span style="color:red">brute-forced</span>!
+
+Brute force attacks include remote password attacks with tools like:
+- [Hydra](https://en.wikipedia.org/wiki/Hydra_(software)) is the tool of choice
+- [Patator](https://www.kali.org/tools/patator/)
+- [Ncrack](https://nmap.org/ncrack/)
+- [Medusa](http://foofus.net/goons/jmk/medusa/medusa.html)
+- [Wpscan](https://wpscan.com/) especifically for WordPress
 
 ### Evaluating a vulnerability exploit
-These are some questions to ask about the exploit:
+These are some questions to care about the exploit:
 - location of the attacker:
   - remote, preferred
   - local (physical), it can be used for internal testing or if we gain access via a remote vector
