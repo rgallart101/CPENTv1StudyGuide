@@ -59,6 +59,7 @@
   - [Windows Exploitation](#windows-exploitation)
   - [Unix/Linux Exploitation](#unixlinux-exploitation)
   - [Other Internal Network Exploitation Techniques](#other-internal-network-exploitation-techniques)
+    - [Replay Attacks](#replay-attacks)
   - [Automating Internal Network PenTest Effort](#automating-internal-network-pentest-effort)
   - [Post Exploitation](#post-exploitation)
   - [Advanced Tips and Techniques](#advanced-tips-and-techniques)
@@ -930,7 +931,10 @@ These are some questions to care about the exploit:
 - **Extract user accounts** from `/etc/passwd`. Only `root` can write this file, but all users can read.
 
 ## Other Internal Network Exploitation Techniques
+There are other techniques that you can try.
 
+### Replay Attacks
+Basically intercept traffic passively and then resend it to one or more of the parties.
 
 ## Automating Internal Network PenTest Effort
 
