@@ -59,6 +59,8 @@
   - [Windows Exploitation](#windows-exploitation)
   - [Unix/Linux Exploitation](#unixlinux-exploitation)
   - [Other Internal Network Exploitation Techniques](#other-internal-network-exploitation-techniques)
+    - [Attempt Replay Attacks](#attempt-replay-attacks)
+    - [Attempt ARP Poisoning](#attempt-arp-poisoning)
     - [Replay Attacks](#replay-attacks)
   - [Automating Internal Network PenTest Effort](#automating-internal-network-pentest-effort)
   - [Post Exploitation](#post-exploitation)
@@ -926,12 +928,28 @@ These are some questions to care about the exploit:
 - **Try to exploit a buffer overflow** if you identify the existence of a local buffer overflow vulnerability. You can use metasploit to create a payload and lure the victim to download and execute it or, if you have remote access, load and execute it yourself.
 
 ## Unix/Linux Exploitation
-- **Identify local/remote exploits** to gain root access.
-- **Gain access to Linux using a remote shell**, running the exploit against the vulnerabilities found in the specific version of Unix/Linux OS.
+- **Identify local/remote exploits** to gain root access. Search for a local/remote exploit to gain access to a vulnerable Linux/Unix system in the [Exploit Database](https://www.exploit-db.com).
+- **Try to gain access to Linux using a remote shell**, running the exploit against the vulnerabilities found in the specific version of Unix/Linux OS.
 - **Extract user accounts** from `/etc/passwd`. Only `root` can write this file, but all users can read.
 
 ## Other Internal Network Exploitation Techniques
-There are other techniques that you can try.
+### Attempt Replay Attacks
+Passively intercept and listen to the network traffic. Resend the stream to one or more parties. Use it to intercept LM password hashes, which are [inherently weak](https://www.mickputley.net/2019/06/lm-hash-lm-hashes-are-weak-and-archiac.html#:~:text=LM%20Hashes%20are%20weak%20and%20archaic%2C%20an%20LM,hash%20doesn%27t%20process%20the%20password%20as%20a%20whole.).
+
+Tools that can be used:
+- [**L0phtCrack**](https://l0phtcrack.gitlab.io)
+- [**RainbowCrack**](http://project-rainbowcrack.com)
+- [**Cain & Abel**](https://www.techspot.com/downloads/2416-cain-abel.html)
+
+### Attempt ARP Poisoning
+If possible, that would allow us to sniff through a switch. Make believe the victm that the IP address that's looking for lives in a MAC address controlled by you.
+
+Tools that can be used:
+- [**Cain & Abel**](https://www.techspot.com/downloads/2416-cain-abel.html)
+- [**WinArpAttacker**](http://www.hacker-soft.net/Soft/Soft_2641.htm)
+- [**Arpspoof**](https://www.kali.org/tools/dsniff/)
+- [**Arpoison**](http://www.arpoison.net)
+- [**Ettercap**](https://www.ettercap-project.org)
 
 ### Replay Attacks
 Basically intercept traffic passively and then resend it to one or more of the parties.
