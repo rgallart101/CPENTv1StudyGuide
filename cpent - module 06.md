@@ -61,6 +61,7 @@
   - [Other Internal Network Exploitation Techniques](#other-internal-network-exploitation-techniques)
     - [Attempt Replay Attacks](#attempt-replay-attacks)
     - [Attempt ARP Poisoning](#attempt-arp-poisoning)
+    - [Attempt MAC Flooding](#attempt-mac-flooding)
     - [Replay Attacks](#replay-attacks)
   - [Automating Internal Network PenTest Effort](#automating-internal-network-pentest-effort)
   - [Post Exploitation](#post-exploitation)
@@ -950,6 +951,12 @@ Tools that can be used:
 - [**Arpspoof**](https://www.kali.org/tools/dsniff/)
 - [**Arpoison**](http://www.arpoison.net)
 - [**Ettercap**](https://www.ettercap-project.org)
+
+### Attempt MAC Flooding
+Aimed at switches, it's a type of ARP poisoning attack. It will try to flood the switch's CAM table with fake MAC addresses so that it goes back to learning mode and broadcast messaged through all ports. Effectively converting the switch into a hub.
+
+Tools that can be used:
+- [**Macof**](https://kalilinuxtutorials.com/macof/)
 
 ### Replay Attacks
 Basically intercept traffic passively and then resend it to one or more of the parties.
