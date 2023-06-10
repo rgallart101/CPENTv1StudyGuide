@@ -62,6 +62,8 @@
     - [Attempt Replay Attacks](#attempt-replay-attacks)
     - [Attempt ARP Poisoning](#attempt-arp-poisoning)
     - [Attempt MAC Flooding](#attempt-mac-flooding)
+    - [Attempt DNS (Cache) Poisoning](#attempt-dns-cache-poisoning)
+    - [Conduct a Man-in-the-Middle Attack](#conduct-a-man-in-the-middle-attack)
     - [Replay Attacks](#replay-attacks)
   - [Automating Internal Network PenTest Effort](#automating-internal-network-pentest-effort)
   - [Post Exploitation](#post-exploitation)
@@ -957,6 +959,18 @@ Aimed at switches, it's a type of ARP poisoning attack. It will try to flood the
 
 Tools that can be used:
 - [**Macof**](https://kalilinuxtutorials.com/macof/)
+
+### Attempt DNS (Cache) Poisoning
+Inject fake records in the cache of a DNS server or corrupt DNS tables and redirect a victim to the malicious IP address. It's usually done by writing malicious mappings of IP addresses to host names. In Windows the file is at `C:\Windows\System32\drivers\etc\hostnames`, and in Linux is under `/etc/hostnames`.
+
+Tools that can be used:
+- [**Dnsspoof**](https://github.com/DanMcInerney/dnsspoof)
+
+### Conduct a Man-in-the-Middle Attack
+Intercept communications between the victim and the server and proxy all of their communications.
+
+It can be done using the following techniques:
+- DNS cache poisoning
 
 ### Replay Attacks
 Basically intercept traffic passively and then resend it to one or more of the parties.
