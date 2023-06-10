@@ -64,6 +64,8 @@
     - [Attempt MAC Flooding](#attempt-mac-flooding)
     - [Attempt DNS (Cache) Poisoning](#attempt-dns-cache-poisoning)
     - [Conduct a Man-in-the-Middle Attack](#conduct-a-man-in-the-middle-attack)
+    - [Try to log into a Console Machine](#try-to-log-into-a-console-machine)
+    - [Boot the PC using Alternate OS and Steal the SAM File](#boot-the-pc-using-alternate-os-and-steal-the-sam-file)
     - [Replay Attacks](#replay-attacks)
   - [Automating Internal Network PenTest Effort](#automating-internal-network-pentest-effort)
   - [Post Exploitation](#post-exploitation)
@@ -964,13 +966,33 @@ Tools that can be used:
 Inject fake records in the cache of a DNS server or corrupt DNS tables and redirect a victim to the malicious IP address. It's usually done by writing malicious mappings of IP addresses to host names. In Windows the file is at `C:\Windows\System32\drivers\etc\hostnames`, and in Linux is under `/etc/hostnames`.
 
 Tools that can be used:
+- If you have access to the victim machine, just update the `hostnames` file.
 - [**Dnsspoof**](https://github.com/DanMcInerney/dnsspoof)
+- [**DNSA**](http://packetfactory.openwall.net/projects/dnsa/index.html)
 
 ### Conduct a Man-in-the-Middle Attack
 Intercept communications between the victim and the server and proxy all of their communications.
 
 It can be done using the following techniques:
-- DNS cache poisoning
+- [DNS cache poisoning](#attempt-dns-cache-poisoning)
+- [ARP spoofing](#attempt-arp-poisoning)
+
+### Try to log into a Console Machine
+You never know... Try using default passwords, blan passwords, etc.
+
+### Boot the PC using Alternate OS and Steal the SAM File
+If you have physical access to the PC, try to boot it using another OS, like Knoppix. Then, follow these steps:
+- Identify and mount the system drive.
+- Copy the SAM file into a pen drive.
+- Shutdown the system and remove the CD and/or unplug the USB stick.
+
+As an example, after having booted the PC with Knoppix:
+
+    # mount -t vfat -o ro /dev/hda1 /mnt/hda1
+    # cd /mnt/hda1/windows/system32/config/sam
+    # cp sam /dev/fd0
+    # umount /dev/hda1
+    # halt
 
 ### Replay Attacks
 Basically intercept traffic passively and then resend it to one or more of the parties.
