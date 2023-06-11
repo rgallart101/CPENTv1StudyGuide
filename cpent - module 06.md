@@ -66,6 +66,7 @@
     - [Conduct a Man-in-the-Middle Attack](#conduct-a-man-in-the-middle-attack)
     - [Try to log into a Console Machine](#try-to-log-into-a-console-machine)
     - [Boot the PC using Alternate OS and Steal the SAM File](#boot-the-pc-using-alternate-os-and-steal-the-sam-file)
+    - [Trying to Break Down the Desktop Lockdown](#trying-to-break-down-the-desktop-lockdown)
     - [Replay Attacks](#replay-attacks)
   - [Automating Internal Network PenTest Effort](#automating-internal-network-pentest-effort)
   - [Post Exploitation](#post-exploitation)
@@ -993,6 +994,37 @@ As an example, after having booted the PC with Knoppix:
     # cp sam /dev/fd0
     # umount /dev/hda1
     # halt
+
+### Trying to Break Down the Desktop Lockdown
+
+Some techniques:
+- **Dialog Box**
+  - They can perform additional functions, such as Windows search.
+  - They can hep explore the system.
+  - Ways to get one include:
+    - *Application functionality*: such as save, save as, open, load, browse, import, export, search, print, scan, etc.
+    - *Shortcut keys*: Ctrl+O to open and Ctrl+N for new.
+- **Abusing the Dialog Box**
+  - Use the opened dialog box to escalate privileges:
+    - Crate batch files: **right click > New > Text File> rename to .BAT (or .CMD) > edit > open**
+    - Create shortcuts: **Right Click > New > Shortcut > "%WINDIR%\system32"**.
+    - Open new Windows Explorer instance: **Right click any folder > select "Open in new window**.
+    - Explore context menus: right click any file/folder and explore context menus.
+    - Bypass file restrictions: Enter *.*, or *.exe in "**File Name**" box to view executable files.
+- **Sticky Keys Popup**
+  - Press down the shift key five times.
+  - Click "**Go to the Ease of Access Center...**
+  - That window has access to the explorer functionality through the address bar.
+- **Use Task Manager**
+  - Ctrl+Alt+Del or Ctrl+Shift+Esc
+- **Access Help Menu**
+  - Select **F1** to access help
+  - Use the links to access command prompt or other explorer functionality
+- **Command Prompt**
+  - Use the Run option by pressing Win+R
+  - Borwse **C:\Windows\System32** folder, right click on **cmd.exe**, and select **open as administrator**
+  - In Windows Explorer type **file:///c:/Windows/System32/cmd.exe** in the address bar
+  - Interactive and management consoles like ftp.exe, mmc.exe, control.exe rundll32.exe, mstc.exe, and wmic.exe can help in breaking out of the locked down desktops.
 
 ### Replay Attacks
 Basically intercept traffic passively and then resend it to one or more of the parties.
