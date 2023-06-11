@@ -67,7 +67,8 @@
     - [Try to log into a Console Machine](#try-to-log-into-a-console-machine)
     - [Boot the PC using Alternate OS and Steal the SAM File](#boot-the-pc-using-alternate-os-and-steal-the-sam-file)
     - [Trying to Break Down the Desktop Lockdown](#trying-to-break-down-the-desktop-lockdown)
-    - [Replay Attacks](#replay-attacks)
+    - [Escalate User Privileges](#escalate-user-privileges)
+    - [Sensitive Data can be Hidden](#sensitive-data-can-be-hidden)
   - [Automating Internal Network PenTest Effort](#automating-internal-network-pentest-effort)
   - [Post Exploitation](#post-exploitation)
   - [Advanced Tips and Techniques](#advanced-tips-and-techniques)
@@ -1026,8 +1027,18 @@ Some techniques:
   - In Windows Explorer type **file:///c:/Windows/System32/cmd.exe** in the address bar
   - Interactive and management consoles like ftp.exe, mmc.exe, control.exe rundll32.exe, mstc.exe, and wmic.exe can help in breaking out of the locked down desktops.
 
-### Replay Attacks
-Basically intercept traffic passively and then resend it to one or more of the parties.
+### Escalate User Privileges
+You enter an attacked system as a regular user and you try to find your way up.
+
+Tools that can be used:
+- [**Active@ Password Changer**](https://www.password-changer.com/index.html), a Windows password reset tool
+- [**BeRoot**](https://github.com/AlessandroZ/BeRoot), BeRoot Project is a post exploitation tool to check common misconfigurations to find a way to escalate our privilege. The project works on Windows, Linux and Mac OS
+
+### Sensitive Data can be Hidden
+Hiding sensitive data prevent other user from getting key information. Information typically hidden include: IP addresses, source code, pictures, Word documents and spreadsheets.
+
+Tools that can be used:
+- [**Free Hide Folder**](https://www.cleanersoft.com/hidefolder/free_hide_folder.htm)
 
 ## Automating Internal Network PenTest Effort
 
