@@ -69,6 +69,11 @@
     - [Trying to Break Down the Desktop Lockdown](#trying-to-break-down-the-desktop-lockdown)
     - [Escalate User Privileges](#escalate-user-privileges)
     - [Sensitive Data can be Hidden](#sensitive-data-can-be-hidden)
+    - [Use of Steganography to Hide Files on Target Machines](#use-of-steganography-to-hide-files-on-target-machines)
+    - [Capture Communications between FTP Client and FTP Server](#capture-communications-between-ftp-client-and-ftp-server)
+    - [Capture HTTPS Traffic (Even though it cannot be decoded)](#capture-https-traffic-even-though-it-cannot-be-decoded)
+    - [Spoof the MAC Address](#spoof-the-mac-address)
+    - [Poison the Victim's Proxy Server](#poison-the-victims-proxy-server)
   - [Automating Internal Network PenTest Effort](#automating-internal-network-pentest-effort)
   - [Post Exploitation](#post-exploitation)
   - [Advanced Tips and Techniques](#advanced-tips-and-techniques)
@@ -1039,6 +1044,34 @@ Hiding sensitive data prevent other user from getting key information. Informati
 
 Tools that can be used:
 - [**Free Hide Folder**](https://www.cleanersoft.com/hidefolder/free_hide_folder.htm)
+
+### Use of Steganography to Hide Files on Target Machines
+Hiding at plain sight sensitive files in images and text.
+
+Tools that can be used:
+- [**QuickStego**](http://www.quickcrypto.com/free-steganography-software.html)
+
+### Capture Communications between FTP Client and FTP Server
+FTP doesn't provide encryption.
+
+Tools that can be used
+- tcpdump
+- Wireshark
+
+### Capture HTTPS Traffic (Even though it cannot be decoded)
+It can be useful to analyze later.
+
+Tools that can be used:
+- [**IE HTTP Analyzer**](https://www.ieinspector.com/httpanalyzer/)
+
+### Spoof the MAC Address
+To get access to VLANs.
+
+Tools that can be used:
+- [**SMAC**](https://smac-tool.com)
+
+### Poison the Victim's Proxy Server
+And redirect them to a rogue server. Try to get their browsers point to a rogue server controlled by the attacker.
 
 ## Automating Internal Network PenTest Effort
 
