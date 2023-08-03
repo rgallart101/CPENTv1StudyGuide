@@ -79,6 +79,7 @@
     - [Test for Format String Vulnerabilities](#test-for-format-string-vulnerabilities)
   - [Automating Internal Network PenTest Effort](#automating-internal-network-pentest-effort)
   - [Post Exploitation](#post-exploitation)
+    - [Escalating privileges](#escalating-privileges)
   - [Advanced Tips and Techniques](#advanced-tips-and-techniques)
   - [Document the Result](#document-the-result)
 - [Footnotes](#footnotes)
@@ -1171,6 +1172,7 @@ You've got a shell! Now, what!?
 | `net stop "Windows Defender Antivirus Service"` | Stops the services[^3] |
 | `net stop "Windows Defender Security Center Service"` | Stops the services[^3] |
 
+### Escalating privileges
 ## Advanced Tips and Techniques
 
 ## Document the Result
