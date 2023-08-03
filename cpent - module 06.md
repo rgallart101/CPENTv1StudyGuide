@@ -74,6 +74,9 @@
     - [Capture HTTPS Traffic (Even though it cannot be decoded)](#capture-https-traffic-even-though-it-cannot-be-decoded)
     - [Spoof the MAC Address](#spoof-the-mac-address)
     - [Poison the Victim's Proxy Server](#poison-the-victims-proxy-server)
+    - [Test for Buffer Overflow Vulnerabilities](#test-for-buffer-overflow-vulnerabilities)
+      - [Stack-Based](#stack-based)
+    - [Test for Format String Vulnerabilities](#test-for-format-string-vulnerabilities)
   - [Automating Internal Network PenTest Effort](#automating-internal-network-pentest-effort)
   - [Post Exploitation](#post-exploitation)
   - [Advanced Tips and Techniques](#advanced-tips-and-techniques)
@@ -1073,8 +1076,30 @@ Tools that can be used:
 ### Poison the Victim's Proxy Server
 And redirect them to a rogue server. Try to get their browsers point to a rogue server controlled by the attacker.
 
-## Automating Internal Network PenTest Effort
+### Test for Buffer Overflow Vulnerabilities
+There are two types of buffer overflow vulnerabilities:
+- stack-based
+- heap-based
 
+We can use debugging tools to discover and exploit these vulnerabilities.
+- [**OllyDbg**](https://www.ollydbg.de)
+- [**x64dbg**](https://x64dbg.com)
+- [**IDA Pro**](https://hex-rays.com/IDA-pro/)
+- [**Ghidra**](https://ghidra-sre.org)
+- [**gdb**](https://sourceware.org/gdb/documentation/)
+
+#### Stack-Based
+Steps to test for stack overflow vulnerabilities:
+1. Attach a debugger to the target application or process.
+2. Generate malformed input for the application.
+3. Subject the application to malformed input.
+4. Insert response in the debugger.
+
+### Test for Format String Vulnerabilities
+If the program we're analyzing is written in C or C++ it's worth looking for format string vulnerabilities. Try to manipulate parameters that will be printed by including `%x` or `%n`.
+
+## Automating Internal Network PenTest Effort
+We can use tools like [Metasploit](https://www.metasploit.com/download) or [CANVAS](https://www.immunityinc.com/products/canvas/) to automate a pentest.
 ## Post Exploitation
 
 ## Advanced Tips and Techniques
