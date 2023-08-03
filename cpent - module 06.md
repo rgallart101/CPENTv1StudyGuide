@@ -1101,6 +1101,32 @@ If the program we're analyzing is written in C or C++ it's worth looking for for
 ## Automating Internal Network PenTest Effort
 We can use tools like [Metasploit](https://www.metasploit.com/download) or [CANVAS](https://www.immunityinc.com/products/canvas/) to automate a pentest.
 ## Post Exploitation
+You've got a shell! Now, what!?
+
+- Disable the firewall
+- Disable Windows Defender
+- Kill the anti-virus (Metasploit script - Kill av)
+- Do local assessment:
+  - learn the internal addressing (`ipconfig`/`ifconfig`)
+  - ping
+  - nslookup (DNS data)
+  - nbtstat (machines of interes & domain controllers)
+  - `netstat -ano` (connections)
+    - In Linux use `netstat -vauptn` or `lsof`
+  - `arp -a` (reachable machines)
+  - Windows `net` commands (locating and disabling protections)
+  - `ftp` and `tftp`
+  - `telnet` banner grabbing
+  - Check for utilities (especially in Linux)
+  - Route print (routing table `netstat -r`)
+  - `tasklist`/`svc` (services running)
+
+| Command | Description |
+| --- | --- |
+| `netsh firewall set opmode disable` | Disables the firewall |
+| `net stop "Windows Defender Antivirus Network Inspection Service"` | Stops the services[^3] |
+| `net stop "Windows Defender Antivirus Service"` | Stops the services[^3] |
+| `net stop "Windows Defender Security Center Service"` | Stops the services[^3] |
 
 ## Advanced Tips and Techniques
 
@@ -1109,4 +1135,5 @@ We can use tools like [Metasploit](https://www.metasploit.com/download) or [CANV
 # Footnotes
 
 [^1]: in `nmap` both `-sn` and `-sP` mean the same (don't ping). `-sn` is the most recent flag deprecating `-sP`.
-[^2]: or `nmap -p "*" <IP_ADDRESS>`
+[^2]: or `nmap -p "*" <IP_ADDRESS>`.
+[^3]: Depending on the level of access the command might not work.
