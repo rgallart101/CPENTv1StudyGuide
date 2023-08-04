@@ -1173,6 +1173,11 @@ You've got a shell! Now, what!?
 | `net stop "Windows Defender Security Center Service"` | Stops the services[^3] |
 
 ### Escalating privileges
+- Use meterpreter
+  - `getsystem -h`
+  - `incognito`
+  - `list_tokens -u` + `impersonate_token <machine_name>\<user|Administrator>`
+  -
 ## Advanced Tips and Techniques
 
 ## Document the Result
