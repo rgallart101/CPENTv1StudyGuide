@@ -1210,15 +1210,13 @@ echo os.system('/bin/bash')
 | `find / -perm -1000 -type d 2>/dev/null` | Finds directories only the owner of a file can rename or delete |
 | `find /perm -g=s -type f 2>/dev/null` | Finds files that run as the group, not the user who started the process |
 | `find /perm -u=s -type f 2>/dev/null` | Finds files that run as the owner, not the user who started the process |
-| `` |  |
-| `` |  |
-| `` |  |
-| `` |  |
-| `` |  |
-| `` |  |
-| `` |  |
-| `` |  |
-
+| `find / -writable -type d 2>/dev/null` | Writable directories |
+| `find / -perm -222 -type d 2>/dev/null` | Writable directories |
+| `find / -perm -o w -type d 2>/dev/null` | World-writable directories |
+| `find / -perm -o x -type d 2>/dev/null` | World-executable folders |
+| `find / \( -perm -o w -perm -o x \) -type d 2>/dev/null` | World-writable and executable folders |
+| `find / -name [perl*|python*|ruby*|gcc*|cc]` | Development tools in the machine |
+| `find / -name [wget|nc*|netcat*|tftp*|ftp]` | File transfer tools |
 
 ## Advanced Tips and Techniques
 
