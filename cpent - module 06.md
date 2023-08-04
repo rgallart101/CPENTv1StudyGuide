@@ -83,6 +83,7 @@
     - [Escalating privileges on Linux](#escalating-privileges-on-linux)
     - [Cleanup](#cleanup)
   - [Advanced Tips and Techniques](#advanced-tips-and-techniques)
+    - [Pivoting](#pivoting)
   - [Document the Result](#document-the-result)
 - [Footnotes](#footnotes)
 
@@ -1242,8 +1243,49 @@ echo os.system('/bin/bash')
 Once exploitation has been proved, we must reverse the machines to their previous state. This might include activities like:
 - removing from the target system executables, scripts, temporary files, user accounts installed and used, etc.
 - resetting systems settings and configuration, if modified.
+- backdoors and rootkits!
 
 ## Advanced Tips and Techniques
+
+### Pivoting
+Pivoting (aka lateral movement or accessing level 2 networks) refers to the action of accessing a network that's hidden from our attacking machine. If we find a machine that's dual homed (i.e., has two or more network cards with access to different networks) we'll have to exploit it first before being able to pivot to the other network. Once we can pivot, the same process applies:
+- information gathering
+- enumeration
+- exploitation
+- etc.
+
+It is important to take into account:
+- the longer the attack, the better the chances of getting caught
+- it's imperative to have the attack as much scripted as possible
+- remember the **scope of work**!
+
+For this type of attack:
+- routing will be required
+- the victim machine will not have the exploits and payloads that I need to attack the next network or machine
+- therefore we can:
+  - download the tools to the victim machine (run from the shell)
+  - use port-forwarding
+  - use session-routing
+
+**Run from the shell**
+- Least desired way
+- have to disable protections in most cases
+- we can use the upload command in meterpreter or tools like tftp or ftp
+
+**Port-forwarding**
+- It's based on redirecting a port in the first victim to another host
+- It's useful when:
+  - there's a firewall between the first compromise and the inside net
+  - direfct routing to the first victim is available
+  - source of the attacks is now the first victim and not us
+
+**Session-routing**
+- we setup routing to send attacks through the initial victim and on to the next ones
+- the attacks are tunneled to the first victim
+- the source address of the new attacks is the first victim
+- the initial victim acts as an exploit proxy
+
+
 
 ## Document the Result
 
